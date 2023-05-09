@@ -1,0 +1,400 @@
+Fermata autobus Gerola Ospedale S.Chiara, Trento Italy
+Fermata autobus Romagnano Nord, Trento Italy
+Fermata autobus Cognola Bivio Civezzano, Trento Italy
+46.07701128046271, 11.114111469838443
+Fermata autobus Sopramonte Piazza Oveno, Trento Italy
+Fermata autobus Roncafort Nord, Trento Italy
+Fermata autobus S.Pio X Matteotti, Trento Italy
+Fermata autobus Povo S.Agata, Trento Italy
+Fermata autobus Gandhi Parco Anna Frank, Trento Italy
+Fermata autobus Giusti Pascoli, Trento Italy
+Fermata autobus Roncafort Asilo, Trento Italy
+Fermata autobus Sanseverino Monte Baldo, Trento Italy
+Fermata autobus Villazzano Valnigra, Trento Italy
+Fermata autobus Lavis Rosmini Segantini, Trento Italy
+Fermata autobus Madonna Bianca Man, Trento Italy
+Fermata autobus Mattioli Vittorio Veneto, Trento Italy
+Fermata autobus Martignano Formigheta, Trento Italy
+Fermata autobus Piazza Dante Pal. Regione, Trento Italy
+Fermata autobus Sopramonte Maso Banal, Trento Italy
+Fermata autobus Ravina Della Croce, Trento Italy
+Fermata autobus Lavis Piazza Mercato, Trento Italy
+Fermata autobus Martignano Chiesa, Trento Italy
+Fermata autobus Gocciadoro Poliambulatori, Trento Italy
+46.05235808506232, 11.112018326934882
+46.0789130522304, 11.154055263960629
+Fermata autobus Canova Via Della Canova, Trento Italy
+Fermata autobus Travai Al Nuoto / Muse, Trento Italy
+Fermata autobus Romagnano Rimoni, Trento Italy
+Fermata autobus San Lazzaro Ponte Avisio, Trento Italy
+Fermata autobus Roncafort Caproni, Trento Italy
+Fermata autobus Spini Bregenz, Trento Italy
+Fermata autobus Dos Trento Mariano, Trento Italy
+Fermata autobus Cognola SVito, Trento Italy
+Fermata autobus Ravina Maso Stella, Trento Italy
+Fermata autobus Gardolo Stazione Ftm, Trento Italy
+Fermata autobus Oberziner Alpini, Trento Italy
+46.05643706945629, 11.12854897171729
+Fermata autobus Parcheggio Area Camper, Trento Italy
+Fermata autobus Travai Piazza Fiera, Trento Italy
+Fermata autobus Conci Ferrovia, Trento Italy
+Fermata autobus Venezia Cave, Trento Italy
+46.07484528665476, 11.125031215855318
+Fermata autobus Brennero Ex Scalo Filzi, Trento Italy
+Fermata autobus Brescia Divisioni Alpine, Trento Italy
+Fermata autobus Caneppele Goio, Trento Italy
+Fermata autobus Venezia Port'aquila, Trento Italy
+Fermata autobus 3 Nov. Ponte Cavalleggeri, Trento Italy
+Fermata autobus Quattro Strade, Trento Italy
+46.062177369040135, 11.132910322959967
+Fermata autobus Spini Monaco, Trento Italy
+Fermata autobus Lavis Stazione Ftm, Trento Italy
+Fermata autobus Villazzano Villa Tambosi, Trento Italy
+Fermata autobus Ss 349 Pozzata, Trento Italy
+Fermata autobus Sanzio Castello, Trento Italy
+Fermata autobus Sopramonte Bivio Baselga, Trento Italy
+Fermata autobus Maso di Brenz, Trento Italy
+Fermata autobus Ravina Masere, Trento Italy
+Fermata autobus Solteri Largaiolli, Trento Italy
+Fermata autobus Ss 45 Montevideo, Trento Italy
+Fermata autobus Mattarello S.Leonardo, Trento Italy
+Fermata autobus Gardolo Cimitero, Trento Italy
+Fermata autobus Sp 131 Maso Pradiscola, Trento Italy
+Fermata autobus Maccani Polizia Locale, Trento Italy
+Fermata autobus Parcheggio Zuffo, Trento Italy
+Fermata autobus Sp 76 Maregioli, Trento Italy
+46.07839773659416, 11.047281547894551
+Fermata autobus Menguzzato Al Casteller, Trento Italy
+Fermata autobus Gazzadina Al Molar, Trento Italy
+Fermata autobus Piave Parco S.Chiara, Trento Italy
+Fermata autobus Lamar Sponda Trentina, Trento Italy
+Fermata autobus Tavernaro Salet, Trento Italy
+Fermata autobus Palazzine Maso S.Antonio, Trento Italy
+Fermata autobus Conci De Riccabona, Trento Italy
+Fermata autobus Mattarello Torre Franca, Trento Italy
+46.070701292138104, 11.176487184483838
+Fermata autobus Ghiaie Salisburgo, Trento Italy
+Fermata autobus Apuleio Case Degasperi, Trento Italy
+Fermata autobus Sp 131 Res. Silvana, Trento Italy
+Fermata autobus Povo Polo Sociale Cap., Trento Italy
+Fermata autobus Bezzi Filzi, Trento Italy
+Fermata autobus Centochiavi Chiocchetti, Trento Italy
+Fermata autobus Spini Zona Ind.Le Ftm, Trento Italy
+Fermata autobus Brennero Magnete, Trento Italy
+Fermata autobus Solteri Nido La Trottola, Trento Italy
+Fermata autobus Meano Portoni, Trento Italy
+Fermata autobus Crosare Officina, Trento Italy
+Fermata autobus Cadine Voltei, Trento Italy
+Fermata autobus Piazza Dante Stazione Fs, Trento Italy
+Fermata autobus Fersina Campi Da Tennis, Trento Italy
+Fermata autobus Asiago Bellevue, Trento Italy
+Fermata autobus Martignano Costiole, Trento Italy
+Fermata autobus Borino Civ.69, Trento Italy
+Fermata autobus Gocciadoro Arcate, Trento Italy
+Fermata autobus Lavis Cembra, Trento Italy
+Fermata autobus Mesiano Stazione Fs, Trento Italy
+Fermata autobus Villazzano Stazione Fs, Trento Italy
+46.025528598169785, 11.132778131433485
+46.04440967964695, 11.105343615444905
+Fermata autobus Villazzano Villa Belfonte, Trento Italy
+Fermata autobus Menguzzato Centro Civico, Trento Italy
+46.05709461806818, 11.113644567567883
+Fermata autobus Bettini Madonna Bianca, Trento Italy
+46.108284963393665, 11.142667585269404
+46.07409901006881, 11.135258494616405
+Fermata autobus Lamar Ftm, Trento Italy
+Fermata autobus Martignano Castori, Trento Italy
+Fermata autobus Brennero Bren Center, Trento Italy
+Fermata autobus Ponte Lodovico, Trento Italy
+Fermata autobus Grotta Piazza, Trento Italy
+Fermata autobus Missioni Africane, Trento Italy
+Fermata autobus Ss 47 Muralta, Trento Italy
+Fermata autobus Stella Marighetto, Trento Italy
+Fermata autobus Asiago Cernidor, Trento Italy
+Fermata autobus Segantini Centa, Trento Italy
+Fermata autobus Rsa Angeli Custodi, Trento Italy
+Fermata autobus Spini Officine, Trento Italy
+Fermata autobus Guardini Centochiavi, Trento Italy
+Fermata autobus Vela Scuole S.Vigilio, Trento Italy
+Fermata autobus Grazioli Brigata Acqui, Trento Italy
+Fermata autobus Degasperi La Clarina, Trento Italy
+Fermata autobus Sanseverino Albere/Muse, Trento Italy
+Fermata autobus Vicenza Montello, Trento Italy
+Fermata autobus Ss 12 Le Caverne, Trento Italy
+Fermata autobus Muralta Valsugana, Trento Italy
+46.069282600624085, 11.05707279525716
+Fermata autobus Giovanelli Osp. S.Camillo, Trento Italy
+Fermata autobus Villazzano Marzola, Trento Italy
+Fermata autobus Ss 45 S.Giorgio, Trento Italy
+Fermata autobus Brennero Marconi, Trento Italy
+Fermata autobus Maccani Rotatoria, Trento Italy
+Fermata autobus Ss 12 Talvera, Trento Italy
+Fermata autobus Vittorio Veneto Lorenzoni, Trento Italy
+Fermata autobus Vela Centro, Trento Italy
+Fermata autobus Tavernaro Centro, Trento Italy
+Fermata autobus Romagnano Piazza Condini, Trento Italy
+46.07039593211841, 11.126827827000463
+Fermata autobus Grotta Bindesi, Trento Italy
+Fermata autobus F.Lli Perini 3 Novembre, Trento Italy
+Fermata autobus Stella S.Gaetano, Trento Italy
+Fermata autobus Centochiavi Dalla Fior, Trento Italy
+Fermata autobus Villazzano Chiesa, Trento Italy
+Fermata autobus 3 Nov. Centro S.Chiara, Trento Italy
+Fermata autobus Spré Pinara, Trento Italy
+Fermata autobus Zambra Ist. D'arte Vittoria, Trento Italy
+Fermata autobus S.Lorenzo Funivia, Trento Italy
+Fermata autobus Mattarello Ex Stazione, Trento Italy
+Fermata autobus Maccani Abondi, Trento Italy
+Fermata autobus Ss 12 Pioppeto, Trento Italy
+Fermata autobus Spini Pal. Giano, Trento Italy
+Fermata autobus SFrancesco Porta Nuova, Trento Italy
+46.065177686151394, 11.123200032106139
+Fermata autobus Torre Verde Galasso, Trento Italy
+Fermata autobus Centa Brennero, Trento Italy
+Fermata autobus Dos Trento Apuleio, Trento Italy
+Fermata autobus Mattarello Fratte, Trento Italy
+Fermata autobus Gazzadina Le Case Nòve, Trento Italy
+46.06783864305498, 11.175565367373302
+Fermata autobus Ss 45 Scala, Trento Italy
+Fermata autobus Adamello Gorizia, Trento Italy
+Fermata autobus Gardolo P.Le Neufahrn Nord, Trento Italy
+Fermata autobus Rosmini SMaria Maggiore, Trento Italy
+Fermata autobus Povo Centro Civico, Trento Italy
+Fermata autobus Solteri Piazzina, Trento Italy
+Fermata autobus Ravina Piazza, Trento Italy
+Fermata autobus Parcheggio Via Lidorno, Trento Italy
+Fermata autobus Gramsci Einaudi, Trento Italy
+Fermata autobus Piazzale Divisioni Alpine, Trento Italy
+Fermata autobus Povo Polo Scientifico Ovest, Trento Italy
+Fermata autobus San Rocco Torricelle, Trento Italy
+Fermata autobus Al Desert Muredei, Trento Italy
+Fermata autobus Muredei Prati, Trento Italy
+Fermata autobus Verona Menguzzato, Trento Italy
+Fermata autobus Cadine Della Fornas, Trento Italy
+Fermata autobus Ravina Case Itea, Trento Italy
+Fermata autobus Verona S.Bartolameo, Trento Italy
+Fermata autobus San Rocco Piazza, Trento Italy
+Fermata autobus Gardolo S.Anna, Trento Italy
+Fermata autobus Gazzoletti Piazza Dante, Trento Italy
+Fermata autobus Gardolo Piazza, Trento Italy
+46.07280770481615, 11.161960598510705
+Fermata autobus Segantini Dogana, Trento Italy
+Fermata autobus Povo Valoni, Trento Italy
+Fermata autobus Mattarello Gotarda, Trento Italy
+Fermata autobus Mattarello Pomeranos, Trento Italy
+Fermata autobus Sp 76 Via Rossa, Trento Italy
+46.06395945698084, 11.150749050717122
+Fermata autobus Ravina del Ponte, Trento Italy
+Fermata autobus Gardolo 4 Nov. Soprasasso, Trento Italy
+Fermata autobus Ghiaie Giardinerie, Trento Italy
+Fermata autobus Interporto Fercam, Trento Italy
+Fermata autobus Vittorio Veneto S.Giuseppe, Trento Italy
+Fermata autobus Verona Big Center, Trento Italy
+Fermata autobus Piazza Dante Palazzo Pat, Trento Italy
+46.12483267067767, 11.11317967762131
+Fermata autobus F.Lli Fontana Oberziner, Trento Italy
+Fermata autobus Cadine Strada Gardesana, Trento Italy
+Fermata autobus Parcheggio Ghiaie, Trento Italy
+Fermata autobus Spini Masadori, Trento Italy
+Fermata autobus Gardolo D.Milani Piscina, Trento Italy
+Fermata autobus Meano Cimitero, Trento Italy
+Fermata autobus Vigo Meano Alle Gorghe, Trento Italy
+Fermata autobus Gardolo P.Le Neufahrn Sud, Trento Italy
+Fermata autobus Sopramonte Valle, Trento Italy
+46.07076542202315, 11.113483423941076
+Fermata autobus Verona Palazzo Stella, Trento Italy
+Fermata autobus Lavis Nazionale, Trento Italy
+Fermata autobus Gazzadina Al Pontat, Trento Italy
+Fermata autobus Mattarello Catoni, Trento Italy
+Fermata autobus Mattarello Regole, Trento Italy
+Fermata autobus Sp 76 Bivio S.Lazzaro, Trento Italy
+Fermata autobus Asiago S.Bartolameo, Trento Italy
+Fermata autobus Brennero Malvasia, Trento Italy
+Fermata autobus Povo Polo Sociale, Trento Italy
+Fermata autobus Meano Piazza Dell'assunta, Trento Italy
+Fermata autobus Gazzadina del Porfido, Trento Italy
+46.07105616243046, 11.138873419303504
+Fermata autobus Gardolo 4 Nov. Canova, Trento Italy
+46.091593368274594, 11.105645914094632
+Fermata autobus Fogazzaro Piscina, Trento Italy
+Fermata autobus Al Desert Ragazzi del 99, Trento Italy
+Fermata autobus Rosmini S.Maria Maggiore, Trento Italy
+Fermata autobus Ghiaie Sc. Materna, Trento Italy
+46.07247566099503, 11.129840939050426
+Fermata autobus Fersina Zona Artigianale, Trento Italy
+Fermata autobus Pranzelores Tridente, Trento Italy
+Fermata autobus Spini Linz, Trento Italy
+Fermata autobus Al Desert Ragazzi del '99, Trento Italy
+Fermata autobus Monte Baldo Ghiaie, Trento Italy
+Fermata autobus Maccani Commercio, Trento Italy
+46.10736349837174, 11.10080691267201
+Fermata autobus Degli Alpini Oberziner, Trento Italy
+Fermata autobus Gardolo Soprasasso, Trento Italy
+Fermata autobus Innsbruck Trentino Trasporti, Trento Italy
+Fermata autobus Vigo Meano Piazza Stainer, Trento Italy
+Fermata autobus Rosmini Cimitero / Muse, Trento Italy
+Fermata autobus Gard.D.Mezzo Maso Garbini, Trento Italy
+Fermata autobus Romagnano 7 Fontane, Trento Italy
+Fermata autobus Ss 12 Paludi, Trento Italy
+Fermata autobus Cognola Centro Civico, Trento Italy
+Fermata autobus Conci Villazzano 3, Trento Italy
+Fermata autobus Asiago S. Bartolameo, Trento Italy
+Fermata autobus Martignano P.Zza Menghin, Trento Italy
+Fermata autobus Marconi Solteri, Trento Italy
+Fermata autobus Mattarello Ronchi, Trento Italy
+Fermata autobus Gorizia Adamello, Trento Italy
+Fermata autobus Venezia Corallo, Trento Italy
+Fermata autobus Villazzano Piazza Nicolini, Trento Italy
+Fermata autobus Ss 12 S.Anna, Trento Italy
+Fermata autobus Vigo Meano Don Perugini, Trento Italy
+Fermata autobus San Donà Chiesa, Trento Italy
+Fermata autobus Spini Praga, Trento Italy
+46.06708254573929, 11.165567486086868
+Fermata autobus Sp 76 Piac, Trento Italy
+Fermata autobus Ravina Chiesa, Trento Italy
+Fermata autobus Rsa S.Bartolomeo, Trento Italy
+Fermata autobus Milano A Prato, Trento Italy
+Fermata autobus Brennero Tridente, Trento Italy
+Fermata autobus Villazzano Banala, Trento Italy
+Fermata autobus Interporto Sait, Trento Italy
+Fermata autobus Povo Fac. Scienze, Trento Italy
+46.09908119114812, 11.119175508470283
+Fermata autobus Pranzelores Top Center, Trento Italy
+Fermata autobus Sp 131 Paganin, Trento Italy
+Fermata autobus Degasperi Palazzo Stella, Trento Italy
+Fermata autobus Gabbiolo Campo Sportivo, Trento Italy
+46.08546764879939, 11.069615788146445
+Fermata autobus Martignano Ai Bolleri, Trento Italy
+Fermata autobus Sp 76 Carpenedi, Trento Italy
+Fermata autobus Sanseverino Verdi, Trento Italy
+Fermata autobus Gardolo 4 Nov. 2 Giugno, Trento Italy
+Fermata autobus Sopramonte Novai, Trento Italy
+46.070359069823866, 11.119105589227745
+Fermata autobus Trener 3 Torri Pat, Trento Italy
+Fermata autobus Villamontagna Michei, Trento Italy
+Fermata autobus Dei Mille Villa Igea, Trento Italy
+Fermata autobus Maccani Campotrentino, Trento Italy
+Fermata autobus Sp 85 Bivio Sopramonte, Trento Italy
+Fermata autobus Ravina Per Belvedere, Trento Italy
+Fermata autobus Sopramonte M.Petoci, Trento Italy
+Fermata autobus Largo Prati, Trento Italy
+Fermata autobus Lamar Sottostazione Enel, Trento Italy
+Fermata autobus Guardini Gilli, Trento Italy
+Fermata autobus Spini di Gardolo, Trento Italy
+46.04787885070311, 11.131128544972224
+Fermata autobus Centochiavi Lunelli, Trento Italy
+Fermata autobus Bettini Nido Mad. Bianca, Trento Italy
+Fermata autobus Povo Salé, Trento Italy
+Fermata autobus Vigo Meano Rio Papa, Trento Italy
+Fermata autobus Spini Loghét, Trento Italy
+Fermata autobus Gardolo S.Anna Carpenedi, Trento Italy
+46.07619918129262, 11.12367149008323
+Fermata autobus Madonna Bianca S.Gaetano, Trento Italy
+Fermata autobus Canova Paludi, Trento Italy
+Fermata autobus Romagnano Sud, Trento Italy
+Fermata autobus Cervara Scalinata, Trento Italy
+46.068257321285934, 11.17867375081509
+Fermata autobus Povo Casa di Riposo, Trento Italy
+Fermata autobus Gardolo Don Milani 8 Marzo, Trento Italy
+Fermata autobus Martignano Capitel, Trento Italy
+Fermata autobus Sp 90 Maso Prudenza, Trento Italy
+Fermata autobus Gard.D.Mezzo Dos D.La Luna, Trento Italy
+Fermata autobus Vela S.Giorgio, Trento Italy
+Fermata autobus Vigo Meano S.Pietro, Trento Italy
+46.06772768549396, 11.184766127541304
+Fermata autobus Meano Campo Sportivo, Trento Italy
+Fermata autobus Ss 12 Zona Ind.Le Ftm, Trento Italy
+Fermata autobus Maso Rossi Aichner, Trento Italy
+Fermata autobus Cognola S.Vito, Trento Italy
+Fermata autobus Giusti Arcivescovile, Trento Italy
+46.075380979090305, 11.139175847803447
+46.07733302925647, 11.11106808533906
+Fermata autobus Tangenziale Ovest Pezcoller, Trento Italy
+Fermata autobus Apuleio Ponte S.Giorgio, Trento Italy
+Fermata autobus Villazzano Giordano, Trento Italy
+Fermata autobus Spré S.Lucia, Trento Italy
+Fermata autobus Spini Casa Circondariale, Trento Italy
+Fermata autobus Mattarello Rozola, Trento Italy
+Fermata autobus Degasperi Big Center, Trento Italy
+Fermata autobus Muredei Benevoli, Trento Italy
+Fermata autobus Romagnano Fontanelle, Trento Italy
+Fermata autobus Ghiaie Zona Ind.Le Ftm, Trento Italy
+Fermata autobus Mesiano Fac. Ingegneria, Trento Italy
+Fermata autobus Povo Sommarive, Trento Italy
+Fermata autobus Giardini Collina, Trento Italy
+46.052882738999266, 11.129780889573281
+Fermata autobus Gramsci Materna La Clarina, Trento Italy
+Fermata autobus Gazzadina Strada Vecchia, Trento Italy
+Fermata autobus Zambra Top Center, Trento Italy
+Fermata autobus Sp 131 Al Maso Specchio, Trento Italy
+Fermata autobus Barbacovi Itg Pozzo, Trento Italy
+46.07303660343568, 11.128401672795041
+Fermata autobus Degasperi Anna Frank, Trento Italy
+Fermata autobus Lunelli Centochiavi, Trento Italy
+Fermata autobus Roncafort Bettine, Trento Italy
+Fermata autobus S.Pio X Largo Prati, Trento Italy
+Fermata autobus Lavis Cantina La-Vis, Trento Italy
+Fermata autobus Mattarello Piazza Perini, Trento Italy
+Fermata autobus Cognola Grezoni, Trento Italy
+Fermata autobus Brescia Villa Salvotti, Trento Italy
+Fermata autobus Melta Case Itea, Trento Italy
+Fermata autobus Lamar Ponte Avisio, Trento Italy
+Fermata autobus Brescia Ca Dei Gai, Trento Italy
+Fermata autobus Montevaccino di Sotto, Trento Italy
+Fermata autobus Fermi La Clarina, Trento Italy
+Fermata autobus Martignano Cesarini, Trento Italy
+Fermata autobus Mattarello Sud, Trento Italy
+Fermata autobus Avancini Laste, Trento Italy
+Fermata autobus Zell Marnighe, Trento Italy
+Fermata autobus Spini Varsavia, Trento Italy
+Fermata autobus Romagnosi Vannetti, Trento Italy
+Fermata autobus Dos Trento Centro Sportivo, Trento Italy
+Fermata autobus Ss 12 Bivio Meano, Trento Italy
+Fermata autobus Vela Alla Scala, Trento Italy
+Fermata autobus Maso Bolleri, Trento Italy
+Fermata autobus Fersina Zona Sportiva, Trento Italy
+Fermata autobus Verdi Inama, Trento Italy
+Fermata autobus Jedin Sanseverino, Trento Italy
+Fermata autobus Parco del Dos Trent, Trento Italy
+Fermata autobus Cognola Scuole, Trento Italy
+Fermata autobus Maccani Ex Sloi, Trento Italy
+Fermata autobus Villamontagna P.Predaroi, Trento Italy
+Fermata autobus Tavernaro Villa Clementi, Trento Italy
+Fermata autobus Crosare Parcheggio, Trento Italy
+46.0972473213584, 11.119798663400564
+Fermata autobus S.Pio X Benevoli, Trento Italy
+Fermata autobus Povo Piazza Manci, Trento Italy
+Fermata autobus Lavis Municipio, Trento Italy
+46.10127945337576, 11.101582113747552
+Fermata autobus Interporto Interbrennero, Trento Italy
+Fermata autobus Pasubio Adamello, Trento Italy
+Fermata autobus S.Francesco Porta Nuova, Trento Italy
+Fermata autobus Meano Bivio S.Lazzaro, Trento Italy
+Fermata autobus F.Lli Fontana Gen. Cantore, Trento Italy
+Fermata autobus Gardolo Materna Paludi, Trento Italy
+Fermata autobus Mattarello Rio Stolzano, Trento Italy
+Fermata autobus Lamar Via Rossa, Trento Italy
+Fermata autobus Mattarello Parco, Trento Italy
+Fermata autobus Gardolo Castel di Gardolo, Trento Italy
+Fermata autobus Bolghera S.Antonio, Trento Italy
+Fermata autobus Ss 12 Canova, Trento Italy
+Fermata autobus Meano Centro Civico, Trento Italy
+Fermata autobus Brigata Acqui Itc Tambosi, Trento Italy
+Fermata autobus Cognola Chiesa, Trento Italy
+Fermata autobus Sopramonte Campra, Trento Italy
+Fermata autobus Gardolo 4 Nov. Piscina, Trento Italy
+46.01201630554474, 11.130486698093764
+Fermata autobus Martignano Piazza Canopi, Trento Italy
+Fermata autobus Spini Klagenfurt, Trento Italy
+Fermata autobus Spini Palazzine, Trento Italy
+Fermata autobus Cervara Cereria, Trento Italy
+46.04550165940642, 11.11351783122439
+46.070183472106294, 11.128015829003227
+Fermata autobus Interporto Logistica 2, Trento Italy
+Fermata autobus Villazzano Villa De Mersi, Trento Italy
+Fermata autobus Ghiaie Monte Baldo, Trento Italy
+Fermata autobus M.Vaccino Maso Librar, Trento Italy
+Fermata autobus Canova Aichner, Trento Italy
+Fermata autobus Gardolo Svincolo Ss.12, Trento Italy
+Fermata autobus Cognola Alla Veduta Roza, Trento Italy
+46.08329843455789, 11.064201567938111
