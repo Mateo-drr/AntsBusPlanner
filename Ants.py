@@ -5,7 +5,8 @@ Created on Mon May  1 14:37:38 2023
 @author: Mateo-drr
 """
 
-path = 'C:/Users/Mateo-drr/Documents/Mateo/Universidades/Trento/2S/BIAI/Project/'
+#path = 'C:/Users/Mateo-drr/Documents/Mateo/Universidades/Trento/2S/BIAI/Project/'
+path = 'C:/Users/Mateo/Documents/Trento/2S/Bio inspired AI/AntsBusPlanner/'
 
 #sum of total stops made is 1213
 #we have 23 lines of buses so
@@ -49,28 +50,30 @@ class BusStops(Benchmark):
         self.distances = distances
         #self.popularity = popularity
         self.components = [swarm.TrailComponent((i, j), value=(1 / distances[i][j])) for i, j in itertools.permutations(range(len(distances)), 2)]
-        self.bias = 0.5
+        self.bias = 0.2
         self.bounder = ec.DiscreteBounder([i for i in range(len(distances))])
         self.maximize = True
-        self._use_ants = True
+        self._use_ants = False
 
     def generator(self, random, args):
         """Return a candidate solution for an evolutionary computation."""
         locations = [i for i in range(len(self.distances))]
         random.shuffle(locations)
+        print(random.shuffle(locations))
         return locations
     
     def constructor(self, random, args):
         """Return a candidate solution for an ant colony optimization."""
         self._use_ants = True
         candidate = []
-        max_stops = 53
+        max_stops = 5
+        min_dist = 0.1
         while len(candidate) < max_stops:#len(candidate) < len(self.distances) - 1:
             # Find feasible components
             feasible_components = []
             if len(candidate) == 0:
                 feasible_components = self.components
-            elif len(candidate) == len(self.distances) - 1:
+            elif len(candidate) == max_stops:#len(self.distances) - 1:
                 first = candidate[0]
                 last = candidate[-1]
                 feasible_components = [c for c in self.components if c.element[0] == last.element[1] and c.element[1] == first.element[0]]
@@ -80,6 +83,10 @@ class BusStops(Benchmark):
                 already_visited.extend([c.element[1] for c in candidate])
                 already_visited = set(already_visited)
                 feasible_components = [c for c in self.components if c.element[0] == last.element[1] and c.element[1] not in already_visited]
+                
+                #Try filtering stops that are too close: ---> check element[0] [1] 
+            feasible_components = [c for c in feasible_components if self.distances[c.element[0], c.element[1]] >= min_dist]
+                
             if len(feasible_components) == 0:
                 candidate = []
             else:
@@ -127,13 +134,34 @@ final_pop = ac.evolve(generator=problem.constructor,
                       evaluator=problem.evaluator, 
                       bounder=problem.bounder,
                       maximize=problem.maximize, 
-                      pop_size=50, 
-                      max_generations=100)
+                      pop_size=1, 
+                      max_generations=1)
 
 best = max(ac.archive)
-print('Best Solution:')
+print('Best Solution:', best)
 print('Distance: {0}'.format(1/best.fitness))
 
+points = [best.candidate[0].element[0]]
+for i in range(len(best.candidate)):
+    points.append(best.candidate[i].element[1])
+
+fcoord = [[float(val) for val in pair.split(', ')] for pair in coord]
+
+antc = []
+for i in range(len(points)):
+    antc.append(fcoord[points[i]])
+
+fcoord = np.array(fcoord).transpose()
+antc = np.array(antc).transpose()
+
+plt.scatter(fcoord[1], fcoord[0],s=2)
+plt.plot(antc[1], antc[0], 'b-')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.title('Latitude and Longitude Coordinates')
+plt.show()
+
+'''
 lon,lat = 46.07839773659416, 11.126325098487808
 stopsa = [(float(x.split(',')[0]), float(x.split(',')[1])) for x in coord]
 
@@ -156,6 +184,7 @@ y = [new_tuples[i][0] for i in range(len(best_route))]
 ax.plot(x, y, 'r')
 
 plt.show()
+'''
 
 ##############################################################################
 '''
