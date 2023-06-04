@@ -5,31 +5,36 @@ Created on Mon May  1 14:37:38 2023
 @author: Mateo-drr
 """
 
-#path = 'C:/Users/Mateo-drr/Documents/Mateo/Universidades/Trento/2S/BIAI/Project/'
-path = 'C:/Users/Mateo/Documents/Trento/2S/Bio inspired AI/AntsBusPlanner/'
+path = 'C:/Users/Mateo-drr/Documents/Mateo/Universidades/Trento/2S/BIAI/Project/'
+#path = 'C:/Users/Mateo/Documents/Trento/2S/Bio inspired AI/AntsBusPlanner/'
 
 #sum of total stops made is 1213
 #we have 23 lines of buses so
 #making each line do an equal number of stops: 52.739 = 53 stops each line 
+#400 stops means each bus has to cover +- 17 stops
 
 from random import Random
 from time import time
 import math
 import inspyred
 import pickle
-import re
-import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 from inspyred import benchmarks
 import itertools
 from inspyred import swarm, ec
 from inspyred.ec import selectors
+from inspyred.ec import evaluators
+import copy
+from collections import Counter
+import datetime
+import wandb
 
 ##############################################################################
 
 
 Benchmark = benchmarks.Benchmark
+wb= True
 
 def haversine(lat1, lon1, lat2, lon2):
     # Convert coordinates to radians
@@ -40,20 +45,21 @@ def haversine(lat1, lon1, lat2, lon2):
     dlat = lat2 - lat1
     a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
     c = 2 * math.asin(math.sqrt(a))
-    r = 6371 # Radius of earth in kilometers. Use 3956 for miles
+    r = 6371 # Radius of earth in kilometers
     return c * r
 
 class BusStops(Benchmark):
-    def __init__(self, distances):
+    def __init__(self, distances, maxstps, avzones, stop2r,bias):
         Benchmark.__init__(self, len(distances))
-        #self.weights = weights
         self.distances = distances
-        #self.popularity = popularity
+        self.maxstps = maxstps
+        self.avzones = copy.deepcopy(avzones)
         self.components = [swarm.TrailComponent((i, j), value=(1 / distances[i][j])) for i, j in itertools.permutations(range(len(distances)), 2)]
-        self.bias = 0.2
+        self.bias = bias
         self.bounder = ec.DiscreteBounder([i for i in range(len(distances))])
         self.maximize = True
         self._use_ants = False
+        self.stop2r = stop2r
 
     def generator(self, random, args):
         """Return a candidate solution for an evolutionary computation."""
@@ -66,29 +72,53 @@ class BusStops(Benchmark):
         """Return a candidate solution for an ant colony optimization."""
         self._use_ants = True
         candidate = []
-        max_stops = 5
-        min_dist = 0.1
-        while len(candidate) < max_stops:#len(candidate) < len(self.distances) - 1:
+        max_stops = self.maxstps
+        upc = copy.deepcopy(self.avzones)
+        min_dist = 0.00
+        removed_counts =[]
+        
+        while len(candidate) < max_stops: #Loop while the ant hasn't visited max_stops
             # Find feasible components
             feasible_components = []
-            if len(candidate) == 0:
-                feasible_components = self.components
-            elif len(candidate) == max_stops:#len(self.distances) - 1:
+            if len(candidate) == 0: #The ant can choose any of the points
+                feasible_components = self.components 
+            elif len(candidate) == max_stops-1: #The ant's last stop has to be the same as the first one
                 first = candidate[0]
                 last = candidate[-1]
-                feasible_components = [c for c in self.components if c.element[0] == last.element[1] and c.element[1] == first.element[0]]
-            else:
+                print('making loop', first,last, end='\r')
                 last = candidate[-1]
-                already_visited = [c.element[0] for c in candidate]
-                already_visited.extend([c.element[1] for c in candidate])
-                already_visited = set(already_visited)
-                feasible_components = [c for c in self.components if c.element[0] == last.element[1] and c.element[1] not in already_visited]
-                
-                #Try filtering stops that are too close: ---> check element[0] [1] 
-            feasible_components = [c for c in feasible_components if self.distances[c.element[0], c.element[1]] >= min_dist]
-                
+                already_visited = [c.element[0] for c in candidate] #left index
+                already_visited.extend([c.element[1] for c in candidate]) #right index
+                av = set(already_visited) #remove repeated 
+                for p in av:
+                    counts = already_visited.count(p)
+                    upc[p] = upc[p] - math.ceil(counts/2)
+                feasible_components = [c for c in self.components if upc[c.element[1]] > 0]
+                feasible_components = [c for c in feasible_components if c.element[0] == last.element[1] and c.element[1] == first.element[0]]
+            else: #The ant has to pick a stop that follows the constraints below
+                last = candidate[-1]
+                already_visited = [c.element[0] for c in candidate] #left index
+                already_visited.extend([c.element[1] for c in candidate]) #right index
+                av = set(already_visited) #remove repeated 
+                for p in av:
+                    counts = already_visited.count(p)
+                    upc[p] = upc[p] - math.ceil(counts/2)
+                # Update the counts array
+                removed_counts = [count for count in upc if count <= 0]
+                exp = np.round(2 / (1 + (1/self.stop2r)*np.exp(17 - 4 * (len(removed_counts)-4))) + 2)
+
+                #Feasible components
+                #next move chosen has to start from last stop:
+                feasible_components = [c for c in self.components if c.element[0] == last.element[1]]
+                #point has to have available places:
+                feasible_components = [c for c in feasible_components if upc[c.element[1]] > 0]
+                #points can be visited a t max 4 times
+                feasible_components = [c for c in feasible_components if already_visited.count(c.element[1]) <= exp]
+                #distnace has to be at least min_dist km
+                feasible_components = [c for c in feasible_components if self.distances[c.element[0], c.element[1]] >= min_dist]
             if len(feasible_components) == 0:
                 candidate = []
+                upc = copy.deepcopy(self.avzones) #reset counts
             else:
                 # Choose a feasible component
                 if random.random() <= self.bias:
@@ -96,264 +126,470 @@ class BusStops(Benchmark):
                 else:
                     next_component = selectors.fitness_proportionate_selection(random, feasible_components, {'num_selected': 1})[0]
                 candidate.append(next_component)
+            #restore upc counts:
+            upc = copy.deepcopy(self.avzones)
+        print() 
         return candidate
     
     def evaluator(self, candidates, args):
         """Return the fitness values for the given candidates."""
         fitness = []
+        upc = self.avzones
         if self._use_ants:
             for candidate in candidates:
                 total = 0
-                for c in candidate:
-                    total += self.distances[c.element[0]][c.element[1]]
-                    #totalp += self.popularity[c.element[0]]
+                tbr = []
+                upc = copy.deepcopy(self.avzones)
+                last = candidate[-1]
+                already_visited = [c.element[0] for c in candidate] #left index
+                already_visited.extend([c.element[1] for c in candidate]) #right index
+                av = set(already_visited) #remove repeated 
+                for p in av:
+                    counts = already_visited.count(p)
+                    upc[p] = upc[p] - math.ceil(counts/2)
+                # Update the counts array
+                removed_counts = [count for count in upc if count <= 0]
+                
+                upc = copy.deepcopy(self.avzones)
+                for i,c in enumerate(candidate):
+                    try:
+                        total += self.distances[c.element[0]][c.element[1]]#/(np.power(upc[upc[c.element[0]]]+upc[c.element[1]], 1/4))
+                    except Exception as e:
+                        print(c)
+                        print(upc)
+                last = (candidate[-1].element[1], candidate[0].element[0])
+                total += self.distances[last[0]][last[1]] 
+
+                fitness.append(len(removed_counts) / total)
+            
+        return fitness
+    
+class BusStopsL(Benchmark):
+    def __init__(self, distances, maxstps, avzones, stop2r,bias):
+        Benchmark.__init__(self, len(distances))
+        self.distances = distances
+        self.maxstps = maxstps
+        self.avzones = copy.deepcopy(avzones)
+        self.components = [swarm.TrailComponent((i, j), value=(1 / distances[i][j])) for i, j in itertools.permutations(range(len(distances)), 2)]
+        self.bias = bias
+        self.bounder = ec.DiscreteBounder([i for i in range(len(distances))])
+        self.maximize = True
+        self._use_ants = False
+        print(stop2r)
+        self.stop2r = copy.deepcopy(stop2r)
+
+    def generator(self, random, args):
+        """Return a candidate solution for an evolutionary computation."""
+        locations = [i for i in range(len(self.distances))]
+        random.shuffle(locations)
+        print(random.shuffle(locations))
+        return locations
+    
+    def constructor(self, random, args):
+        """Return a candidate solution for an ant colony optimization."""
+        self._use_ants = True
+        candidate = []
+        max_stops = self.maxstps
+        upc = copy.deepcopy(self.avzones)
+        min_dist = 0.00
+        removed_counts =[]
+        stop2r = self.stop2r
+        emrg = 0
+        while len(removed_counts) < stop2r:
+            # Find feasible components
+            feasible_components = []
+            if len(candidate) == 0:
+                feasible_components = self.components
+            elif len(removed_counts) == stop2r-1:
+                print('a',len(removed_counts), stop2r)
+                first = candidate[0]
+                last = candidate[-1]
+                feasible_components = [c for c in self.components if c.element[0] == last.element[1] and c.element[1] == first.element[0]]
+                
+                last = candidate[-1]
+                already_visited = [c.element[0] for c in candidate] #left index
+                already_visited.extend([c.element[1] for c in candidate]) #right index
+                av = set(already_visited) #remove repeated 
+                for p in av:
+                    counts = already_visited.count(p)
+                    upc[p] = upc[p] - math.ceil(counts/2)
+                # Update the counts array
+                removed_counts = [count for count in upc if count <= 0]
+                emrg+=1
+                if emrg > 15:
+                    print('emrg')
+                    break
+                
+            else:
+                last = candidate[-1]
+                already_visited = [c.element[0] for c in candidate] #left index
+                already_visited.extend([c.element[1] for c in candidate]) #right index
+                av = set(already_visited) #remove repeated 
+                for p in av:
+                    counts = already_visited.count(p)
+                    upc[p] = upc[p] - math.ceil(counts/2)
+                #next move chosen has to start from last stop:
+                feasible_components = [c for c in self.components if c.element[0] == last.element[1]]
+                #point has to have available places:
+                feasible_components = [c for c in feasible_components if upc[c.element[1]] >0]
+                
+            if len(feasible_components) == 0:
+                candidate = []
+                print(upc, len(upc))
+                upc = copy.deepcopy(self.avzones) #reset counts
+                print(upc, len(upc))
+            else:
+                # Choose a feasible component
+                if random.random() <= self.bias:
+                    next_component = max(feasible_components)
+                else:
+                    next_component = selectors.fitness_proportionate_selection(random, feasible_components, {'num_selected': 1})[0]
+                candidate.append(next_component)
+            #restore upc counts:
+            upc = copy.deepcopy(self.avzones)
+        return candidate
+    
+    def evaluator(self, candidates, args):
+        """Return the fitness values for the given candidates."""
+        fitness = []
+        upc = self.avzones
+        if self._use_ants:
+            for candidate in candidates:
+                total = 0
+                tbr = []
+                upc = copy.deepcopy(self.avzones)
+                print(candidate)
+                last = candidate[-1]
+                already_visited = [c.element[0] for c in candidate] #left index
+                already_visited.extend([c.element[1] for c in candidate]) #right index
+                av = set(already_visited) #remove repeated 
+                for p in av:
+                    counts = already_visited.count(p)
+                    upc[p] = upc[p] - math.ceil(counts/2)
+                # Update the counts array
+                removed_counts = [count for count in upc if count <= 0]
+                upc = copy.deepcopy(self.avzones)
+                for i,c in enumerate(candidate):
+                    try:
+                        total += self.distances[c.element[0]][c.element[1]]
+                    except Exception as e:
+                        print(c)
+                        print(upc)
                 last = (candidate[-1].element[1], candidate[0].element[0])
                 total += self.distances[last[0]][last[1]]
-                fitness.append(1 / total)
+                
+                fitness.append(len(removed_counts) / total)
     
-        return fitness
+        return fitness    
+    
+def progress_observer(population, num_generations, num_evaluations, args):
+    best_fitness = max(population).fitness
+    print(f"Generation: {num_generations+1}, Best Fitness: {best_fitness}")
 
 #Load the data
 with open(path+'coordf.p', 'rb') as f:
     coord = pickle.load(f)
 with open(path+'counts.p', 'rb') as f:
     counts = pickle.load(f)
+
+def main():
+#if True:  
     
-#Calculate the euclidean distances between all the stops   
-eucd = np.zeros((400,400))
-for i in range(0,len(coord)):
-    for j in range(0,len(coord)):
-        eucd[i,j] = haversine(*coord[i].split(','),  *coord[j].split(','))
-
-problem = BusStops(eucd)
-prng = Random()
-prng.seed(time()) 
-ac = inspyred.swarm.ACS(prng, problem.components)
-ac.terminator = inspyred.ec.terminators.generation_termination
-final_pop = ac.evolve(generator=problem.constructor, 
-                      evaluator=problem.evaluator, 
-                      bounder=problem.bounder,
-                      maximize=problem.maximize, 
-                      pop_size=1, 
-                      max_generations=1)
-
-best = max(ac.archive)
-print('Best Solution:', best)
-print('Distance: {0}'.format(1/best.fitness))
-
-points = [best.candidate[0].element[0]]
-for i in range(len(best.candidate)):
-    points.append(best.candidate[i].element[1])
-
-fcoord = [[float(val) for val in pair.split(', ')] for pair in coord]
-
-antc = []
-for i in range(len(points)):
-    antc.append(fcoord[points[i]])
-
-fcoord = np.array(fcoord).transpose()
-antc = np.array(antc).transpose()
-
-plt.scatter(fcoord[1], fcoord[0],s=2)
-plt.plot(antc[1], antc[0], 'b-')
-plt.xlabel('Longitude')
-plt.ylabel('Latitude')
-plt.title('Latitude and Longitude Coordinates')
-plt.show()
-
-'''
-lon,lat = 46.07839773659416, 11.126325098487808
-stopsa = [(float(x.split(',')[0]), float(x.split(',')[1])) for x in coord]
-
-# Subtract the southwesternmost coordinates from all stops to get only positive values
-stopsa = [(s[0]-lat, s[1]-lon) for s in stopsa]
-
-
-minx = min(stopsa, key=lambda x: x[0])[0]
-miny = min(stopsa, key=lambda x: x[1])[1]
-
-new_tuples = [(t[0] + np.abs(minx), t[1]+ np.abs(miny)) for t in stopsa]
-fig, ax = plt.subplots(figsize=(10,10))
-ax.scatter([s[1] for s in new_tuples], [s[0] for s in new_tuples], s=5)
-
-# Plot the best route
-best_individual = ac.archive[0]
-best_route = best_individual.candidate
-x = [new_tuples[i][1] for i in range(len(best_route))]
-y = [new_tuples[i][0] for i in range(len(best_route))]
-ax.plot(x, y, 'r')
-
-plt.show()
-'''
-
-##############################################################################
-'''
-if True:
-    if True:
-        prng = Random()
-        prng.seed(time()) 
-        
-    points = [(110.0, 225.0), (161.0, 280.0), (325.0, 554.0), (490.0, 285.0), 
-              (157.0, 443.0), (283.0, 379.0), (397.0, 566.0), (306.0, 360.0), 
-              (343.0, 110.0), (552.0, 199.0)]
-    weights = [[0 for _ in range(len(points))] for _ in range(len(points))]
-    for i, p in enumerate(points):
-        for j, q in enumerate(points):
-            weights[i][j] = math.sqrt((p[0] - q[0])**2 + (p[1] - q[1])**2)
-              
-    problem = inspyred.benchmarks.TSP(weights)
-    ac = inspyred.swarm.ACS(prng, problem.components)
-    ac.terminator = inspyred.ec.terminators.generation_termination
-    final_pop = ac.evolve(generator=problem.constructor, 
-                          evaluator=problem.evaluator, 
-                          bounder=problem.bounder,
-                          maximize=problem.maximize, 
-                          pop_size=10, 
-                          max_generations=50)
+    #Calculate the euclidean distances between all the stops   
+    eucd = np.zeros((len(coord),len(coord)))
+    for i in range(0,len(coord)):
+        for j in range(0,len(coord)):
+            eucd[i,j] = haversine(*coord[i].split(','),  *coord[j].split(','))
+            
+    #copy original data to update on the run
+    oge = copy.deepcopy(eucd)
+    upc = copy.deepcopy(counts)
+    coc = copy.deepcopy(coord)
     
-    if True:
-        best = max(ac.archive)
-        print('Best Solution:')
-        for b in best.candidate:
-            print(points[b.element[0]])
-        print(points[best.candidate[-1].element[1]])
-        print('Distance: {0}'.format(1/best.fitness))
-
-
-distances = {(0, 1): 6193, (1, 0): 6655, (0, 2): 5774, (2, 0): 5590, (0, 3): 3473, (3, 0): 4523, (0, 4): 10481, (4, 0): 10291, (0, 5): 6503, (5, 0): 7731}
-
-# Determine the size of the matrix
-size = max(max(pair) for pair in distances.keys()) + 1
-
-# Create an empty matrix
-matrix = [[1] * size for _ in range(size)]
-
-# Populate the matrix with the distances
-for (i, j), dist in distances.items():
-    matrix[i][j] = dist
-
-# Print the matrix
-for row in matrix:
-    print(row)
-
-# load the dictionary from the file
-with open(path+'coordinates.p', 'rb') as f:
-    coord = pickle.load(f)
+    #Loop the problem for the 22 bus lines
+    antlines = []
+    bestants = []
+    max_stops = 53
+    points=[]
+    bl = 23
+    attempt = 0
+    fbest = []
+    newstart=0
+    bline = 0
+    failed = 0
+    last = 0
+    t0 = 0 
+    t0 = time()
+    bias = -0.022727*bline+0.9
+    pop = 2
+    gen = 2
+    oka = []
     
-with open(path+'stops.txt') as f:
-    stops = [line.strip() for line in f]
-
-for i, place in enumerate(stops):
-    if place[0] != 'F':
-        coord[i] = place
+    if wb:
+        wandb.init(name='ants1',project="ants")
+        config = {
+            "bl": bl,
+            "bias":bias,
+            "pop":pop,
+            "gen":gen
+        }
+        wandb.config.update(config)
+    
+    for bb in range(0,10000):
+        if wb:
+            wandb.log({'UPC': np.sum(upc)})
+            wandb.log({'Available Stops': len(upc)})
         
-coord[163] = '46.03801842559459, 11.108835564361838'
-coord[337] = '46.0759479141241, 11.146697937594096'
-coord[121] = '46.06175272240885, 11.13587252254034'
-coord[352] = '46.0789235936617, 11.103523631072104'
-coord[134] = '46.01773556657479, 11.105930193511233'
-coord[358] = '46.07579499826207, 11.144012987724873'
-coord[51] = '46.043855579543646, 11.140421084627958'
-coord[120] = '46.0634250060924, 11.113179201854539'
-
-
-# Example usage
-print(haversine(*coord[0].split(','),  *coord[1].split(',')))
-
-#find the most southwestern point
-lat,lon = 1000000,10000000
-for i,stop in enumerate(coord):
-    a,b = stop.split(',')
-    a,b = float(a), float(b)
-    #if a < lat and b <  lon:
-    if a < lat:
-        lat = a
-        lon = b
-        print(a,b,i,stops[i])
+        t1 = time()
+        print('ETA:', str(datetime.timedelta(seconds = (t1-t0)*(bl-bline)/(bline+1))))
+        antc = []
+        if newstart !=0:
+            bline = newstart
+            newstart = 0
+        if bline > bl: #all lines designed
+            idk = input('hey a')
+            break
+        if failed == 1 and max_stops > len(upc) and last ==0:
+            last = 1
+        if last ==2 and failed ==1:
+            print(len(upc), np.sum(upc), len(oka))
+            idk = input('hey b')
+            break
         
-#west 46.07839773659416 11.047281547894551 65
-#south 46.00272444937034 11.126325098487808 345
-      
+        if  max_stops < len(upc) or last == 1:
+            failed = 0
+            print('\n LINE N',bline) # LINE N 10 Remaining Stops 144 Max stops 69 Available zones 45
+            max_stops = np.sum(upc)//(bl-bline)
+            if last: #last =0  == false
+                max_stops = len(upc)
+                last =2
+            bias = 0.9#-0.022727*bline+0.9
+            print('Remaining Stops', np.sum(upc), 'Max stops', max_stops, 'Available zones', len(upc),'bias', bias)
+            #ANTS inspyred problem
+            stop2r = len(upc)//(bl-bline)
+            if last ==2:
+                print("LASTT")
+                problem = BusStopsL(eucd, max_stops, upc, len(upc),bias)
+            else:
+                problem = BusStops(eucd, max_stops, upc, stop2r,bias)
+            prng = Random()
+            prng.seed(time()) 
+            ac = inspyred.swarm.ACS(prng, problem.components)
+            ac.terminator = inspyred.ec.terminators.generation_termination
+            ac.observer = progress_observer
+            
+            final_pop = ac.evolve(generator=problem.constructor, 
+                                  evaluator=evaluators.parallel_evaluation_mp,
+                                  mp_evaluator=problem.evaluator,
+                                  mp_num_cpus=8,
+                                  bounder=problem.bounder,
+                                  maximize=problem.maximize, 
+                                  pop_size=pop, 
+                                  max_generations=gen-1)
+            
+            best = max(ac.archive) #best is a dict with fitness and candidate, cand. has coordinates and fitness
+            print('Best Solution:', best.fitness, 'Distance: {0}'.format(1/best.fitness))
+            bestants.append({'ant':best, 'coc':[],'points':[]})
+            if wb:
+                wandb.log({'Line fitness': best.fitness})
+            #Get the points of the best solution
+            points = [best.candidate[0].element[0]]
+            for i in range(len(best.candidate)):
+                points.append(best.candidate[i].element[1])
+
+            #PLOT THE RESULTS
+            fcoord = [[float(val) for val in pair.split(', ')] for pair in coc]
+            
+            antc = []
+            for i in range(len(points)):
+                antc.append(fcoord[points[i]])
+            
+            fcoord = np.array(fcoord).transpose()
+            antc = np.array(antc).transpose()
+            antlines.append(antc)
+    
+            bestants[-1]['coc'] = copy.deepcopy(coc)
+            bestants[-1]['points'] = copy.deepcopy(points)
+    
+            tbr = []
+            for p in points:
+                upc[p] = upc[p] - 1
+                if upc[p] < 1:
+                    stop_to_remove = coc[p]
+                    tbr.append(stop_to_remove)
+            
+            # Update the coc list by removing the stops
+            coc = [stop for stop in coc if stop not in tbr]
+            # Update the counts array
+            removed_counts = [count for count in upc if count <= 0]
+            upc = [count for count in upc if count > 0]
+            print("Removed counts:", removed_counts)
+             
+            #recalculate the distace matrix without removed points
+            eucd = np.zeros((len(coc),len(coc)))
+            for i in range(0,len(coc)):
+                for j in range(0,len(coc)):
+                    eucd[i,j] = haversine(*coc[i].split(','),  *coc[j].split(','))
+                    
+            print('Ant stops done', len(points))
+            print(len(upc), np.sum(upc))
+            problem = 0
+
+                
+            
+        else:
+            try:
+                print('\nHallOfFame\n')
+                #reset available stops
+                upc = copy.deepcopy(counts)
+                coc = copy.deepcopy(coord) 
+                
+                #Take the best ant from the run
+                best = 0
+                temprank = []
+                fbest = [] #allows to get the best n buses of each attempt, deleting previous ones stored. 
+                oka = []
+                indexes_in_list2 = []
+                
+                bestants.sort(key=lambda x: x['ant'].fitness)  # Sort bestants list in ascending order based on fitness
+                temprank = bestants[-(attempt+1):] 
+                
+                for i in range(0,attempt+1):
+                    best = temprank[i]
+                    fbest.append(best['ant']) #final best solutions for later plotting
+                    #Find the values in the original upc
+                    indexes_of_interest = best['points']
+                    list1 = best['coc']
+                    list2 = coc
+                    linepoints =[]
+                    for index in indexes_of_interest:
+                        # Get the value at the given index in list1
+                        value = list1[index]
+                        # Search for the value in list2 and get its index
+                        for j in range(len(list2)):
+                            if list2[j] == value:
+                                indexes_in_list2.append(j)
+                                linepoints.append(j)
+                    
+                    best = best['ant']
+                    oka.append({'ant': best, 'coc':coc, 'points':linepoints})
+                    
+                tbr = []
+                #Decrease stop counts
+                for p in indexes_in_list2:
+                    upc[p] = upc[p] - 1
+                    if upc[p] < 1:
+                        tbr.append(coc[p])
+                            
+                # Update the coc list by removing the stops
+                removed_stops = [stop for stop in coc if stop in tbr]
+                coc = [stop for stop in coc if stop not in tbr]
+                
+                # Update the counts array
+                removed_counts = [count for count in upc if count <= 0]
+                print("Removed counts:", removed_counts, len(removed_counts), len(indexes_in_list2), len(coc))
+                upc = [count for count in upc if count > 0]
+                
+                if any(num < 0 for num in removed_counts):
+                    if last != 2:
+                        print('failed', upc[10000000000000]) 
+                    else:
+                        print('theres a  -1!!')
+
+                #recalculate the distace matrix without removed points
+                eucd = np.zeros((len(coc),len(coc)))
+                for i in range(0,len(coc)):
+                    for j in range(0,len(coc)):
+                        eucd[i,j] = haversine(*coc[i].split(','),  *coc[j].split(','))
+    
+                attempt+=1
+                failed+=1                       
+                        
+                print("\n////////////////////// \nAttempt number ", attempt, '\n/////////////////////// \n')
+                newstart = attempt
+                bestants = []
+                for i in range(0,len(fbest)):
+                    print('LINE', i, 'STOPS', len(fbest[i].candidate), 'FITNESS', fbest[i].fitness, len(oka[i]['points']))
+                    #print(oka[i]['points'], oka[i]['ant'])
+                    td = 0
+                    for p in range(0,len(oka[i]['points'])-1):
+                        td+= oge[oka[i]['points'][p],oka[i]['points'][p+1]]
+                    print('Distance', td)
+                    if wb:
+                        wandb.log({'Final fitness': fbest[i].fitness})
+                        wandb.log({'Final distance': td})
+                    bestants.append(oka[i])
+            except Exception as e:
+                idk = input('hey c')
+                print(e)
+                break;
+        bline+=1
         
-G = nx.Graph()
-for i in range(len(coord)):
-    for j in range(i+1,len(coord)):
-        G.add_edge(str(coord[i]), str(coord[j]),
-                   weight=haversine(*coord[i].split(','), *coord[j].split(',')))
+                
+    #PLOT THE RESULTS
+    colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown', 'pink', 'gray', 'olive', 'cyan', 'navy', 'teal',
+              'coral', 'lime', 'maroon', 'indigo', 'gold', 'orchid', 'sienna', 'turquoise', 'salmon', 'darkgreen',
+              'steelblue', 'tomato', 'darkviolet', 'sandybrown', 'mediumseagreen']
+    antlines =[]
+    tst = []
+    with open('ants.p', 'wb') as file:
+        pickle.dump(bestants, file)        
+    
+    fbest = bestants
+    for ant in fbest:
+        tst.extend(ant['points'])
+        fcoord = [[float(val) for val in pair.split(', ')] for pair in coord]
+        antc = []
+        for i in range(len(ant['points'])):
+            antc.append(fcoord[ant['points'][i]]) #append the coord of the ant 
+        antc = np.array(antc).transpose() #transpose them
+        fcoord = np.array(fcoord).transpose() #tranpose all the coordinates
+        antlines.append(antc) #append the final ready to plot path
 
+    plt.scatter(fcoord[1], fcoord[0],s=2)
+    for k,antc in enumerate(antlines):
+        plt.plot(antc[1], antc[0], color=colors[k], linewidth=0.5)
+        xx = [antc[1][0], antc[1][-1]]
+        yy = [antc[0][0],antc[0][-1]]
+        plt.plot(xx,yy,color=colors[k], linewidth=0.5)
+        plt.scatter(antc[1], antc[0], s=2, color=colors[k])
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.title('Latitude and Longitude Coordinates')
+    plt.show()
 
+    print(len(Counter(tst)))
+    fig, axs = plt.subplots(5, 5, figsize=(12, 10))  # Create a 5x5 grid of subplots
+    
+    # Plot individual ant lines in separate subplots
+    for k, antc in enumerate(antlines):
+        ax = axs[k // 5, k % 5]  # Select the appropriate subplot
+        ax.plot(antc[1], antc[0], color=colors[k], linewidth=0.5)
+        ax.scatter(antc[1], antc[0], s=2, color=colors[k])
+        ax.set_xlabel('Longitude')
+        ax.set_ylabel('Latitude')
+        ax.set_title('Ant Line {} F: {:.2f}'.format(k, fbest[k]['ant'].fitness))
+    
+    # Plot the mixed plot as a subplot
+    ax = axs[4, 4]  # Select the bottom-right subplot
+    ax.scatter(fcoord[1], fcoord[0],s=2)
+    for k,antc in enumerate(antlines):
+        ax.plot(antc[1], antc[0], color=colors[k], linewidth=0.5)
+        xx = [antc[1][0], antc[1][-1]]
+        yy = [antc[0][0],antc[0][-1]]
+        plt.plot(xx,yy,color=colors[k], linewidth=0.5)
+        ax.scatter(antc[1], antc[0], s=2, color=colors[k])
+    ax.set_xlabel('Longitude')
+    ax.set_ylabel('Latitude')
+    ax.set_title('Mixed Plot')
+    
+    # Remove any unused subplots
+    if len(antlines) < 25:
+        for k in range(len(antlines), 25):
+            axs[k // 5, k % 5].axis('off')
+    
+    plt.tight_layout()  # Adjust spacing between subplots
+    plt.show()
 
-#for i,stop in enumerate(stops):
-for i in range(299,len(stops)):
-    print(stops[i])
-    print(coord[i], i)
-    inp = input(">>> ")
-    coord[i] = str(inp)
-
-with open(path + 'coordf.p', 'wb') as file:
-    # Write the object to the file
-    pickle.dump(coord, file)
-
-#last done was 299 
-#todo 300
-#46.02911273804141, 11.111675640398282'
-
-
-
-
-
-# Set the west-most and south-most points as the origin (0, 0)
-
-west_most_lon, south_most_lat = 46.07839773659416, 11.126325098487808
-
-# Convert all coordinates to Cartesian coordinates
-x_coords = []
-y_coords = []
-for cd in coord:
-    lon, lat = map(float, cd.split(','))
-    x = (lon - west_most_lon) * 111319.9 * np.cos(np.radians(south_most_lat))
-    if x < 0:
-        x = 0
-        print(x, cd)
-    y = (lat - south_most_lat) * 110574.61
-    if y < 0:
-        y = 0
-        print(y, cd)
-    x_coords.append(x)
-    y_coords.append(y)
-
-# Plot the stops
-fig, ax = plt.subplots()
-ax.scatter(x_coords, y_coords, s=5)
-plt.show()
-
-
-lon,lat = 46.07839773659416, 11.126325098487808
-stopsa = [(float(x.split(',')[0]), float(x.split(',')[1])) for x in coord]
-
-# Subtract the southwesternmost coordinates from all stops to get only positive values
-stopsa = [(s[0]-lat, s[1]-lon) for s in stopsa]
-
-# Plot the stops
-fig, ax = plt.subplots(figsize=(10,10))
-ax.scatter([s[1] for s in stopsa], [s[0] for s in stopsa], s=5)
-
-plt.show()
-
-minx = min(stopsa, key=lambda x: x[0])[0]
-miny = min(stopsa, key=lambda x: x[1])[1]
-
-new_tuples = [(t[0] + np.abs(minx), t[1]+ np.abs(miny)) for t in stopsa]
-fig, ax = plt.subplots(figsize=(10,10))
-ax.scatter([s[1] for s in new_tuples], [s[0] for s in new_tuples], s=5)
-
-# Plot the best route
-best_individual = ac.archive[0]
-best_route = best_individual.candidate
-x = [new_tuples[i][1] for i in range(len(best_route))]
-y = [new_tuples[i][0] for i in range(len(best_route))]
-ax.plot(x, y, 'r')
-
-plt.show()
-
-'''
+if __name__ == "__main__":
+    main()
