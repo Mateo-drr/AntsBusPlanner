@@ -235,7 +235,7 @@ class BusStopsL(Benchmark):
                 
             if len(feasible_components) == 0:
                 candidate = []
-                print(upc, len(upc))
+                print(upc, len(upc), emrg)
                 upc = copy.deepcopy(self.avzones) #reset counts
                 print(upc, len(upc))
             else:
@@ -321,8 +321,8 @@ def main():
     t0 = 0 
     t0 = time()
     bias = -0.022727*bline+0.9
-    pop = 2
-    gen = 2
+    pop = 3
+    gen = 3
     oka = []
     
     if wb:

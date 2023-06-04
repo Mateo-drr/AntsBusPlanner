@@ -1,1 +1,1 @@
-{"Available Stops": 345, "_timestamp": 1685891580.4598603, "_runtime": 337.6427822113037, "_step": 10}
+{"UPC": 155, "_timestamp": 1685901721.4044697, "_runtime": 10478.587391614914, "_step": 1112, "Available Stops": 47, "Line fitness": 0.35059192588764587, "Final fitness": 1.7472599712722308, "Final distance": 12.591142910451477, "_wandb": {"runtime": 12736}}

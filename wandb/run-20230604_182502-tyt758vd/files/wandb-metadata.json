@@ -1,0 +1,50 @@
+{
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.9.16",
+    "heartbeatAt": "2023-06-04T16:25:02.979109",
+    "startedAt": "2023-06-04T16:25:02.257525",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "C:\\Users\\Mateo-drr\\Documents\\Mateo\\Universidades\\Trento\\2S\\BIAI\\Project\\Ants.py",
+    "codePath": "Ants.py",
+    "git": {
+        "remote": "https://github.com/Mateo-drr/AntsBusPlanner.git",
+        "commit": "3407e184f3be056796c4734fdc36c261a97ab981"
+    },
+    "email": "mateodrr@gmail.com",
+    "root": "C:/Users/Mateo-drr/Documents/Mateo/Universidades/Trento/2S/BIAI/Project",
+    "host": "DESKTOP-NN2NSGM",
+    "username": "Mateo-drr",
+    "executable": "C:\\Users\\Mateo-drr\\miniconda3\\python.exe",
+    "cpu_count": 4,
+    "cpu_count_logical": 8,
+    "cpu_freq": {
+        "current": 3300.0,
+        "min": 0.0,
+        "max": 3300.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3300.0,
+            "min": 0.0,
+            "max": 3300.0
+        }
+    ],
+    "disk": {
+        "total": 418.6636276245117,
+        "used": 377.7377243041992
+    },
+    "gpu": "NVIDIA GeForce RTX 2060",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 2060",
+            "memory_total": 12884901888
+        }
+    ],
+    "memory": {
+        "total": 15.845146179199219
+    }
+}

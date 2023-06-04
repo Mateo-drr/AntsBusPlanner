@@ -1,0 +1,29 @@
+2023-06-04 17:07:22,812 INFO    MainThread:20088 [wandb_setup.py:_flush():76] Current SDK version is 0.15.2
+2023-06-04 17:07:22,812 INFO    MainThread:20088 [wandb_setup.py:_flush():76] Configure stats pid to 20088
+2023-06-04 17:07:22,812 INFO    MainThread:20088 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Mateo-drr\.config\wandb\settings
+2023-06-04 17:07:22,812 INFO    MainThread:20088 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Mateo-drr\Documents\Mateo\Universidades\Trento\2S\BIAI\Project\wandb\settings
+2023-06-04 17:07:22,812 INFO    MainThread:20088 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-06-04 17:07:22,812 INFO    MainThread:20088 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-06-04 17:07:22,813 INFO    MainThread:20088 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'Ants.py', 'program': 'C:\\Users\\Mateo-drr\\Documents\\Mateo\\Universidades\\Trento\\2S\\BIAI\\Project\\Ants.py'}
+2023-06-04 17:07:22,813 INFO    MainThread:20088 [wandb_init.py:_log_setup():507] Logging user logs to C:\Users\Mateo-drr\Documents\Mateo\Universidades\Trento\2S\BIAI\Project\wandb\run-20230604_170722-pn146fv1\logs\debug.log
+2023-06-04 17:07:22,813 INFO    MainThread:20088 [wandb_init.py:_log_setup():508] Logging internal logs to C:\Users\Mateo-drr\Documents\Mateo\Universidades\Trento\2S\BIAI\Project\wandb\run-20230604_170722-pn146fv1\logs\debug-internal.log
+2023-06-04 17:07:22,813 INFO    MainThread:20088 [wandb_init.py:init():547] calling init triggers
+2023-06-04 17:07:22,813 INFO    MainThread:20088 [wandb_init.py:init():554] wandb.init called with sweep_config: {}
+config: {}
+2023-06-04 17:07:22,813 INFO    MainThread:20088 [wandb_init.py:init():596] starting backend
+2023-06-04 17:07:22,813 INFO    MainThread:20088 [wandb_init.py:init():600] setting up manager
+2023-06-04 17:07:22,814 INFO    MainThread:20088 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=spawn, using: spawn
+2023-06-04 17:07:22,816 INFO    MainThread:20088 [wandb_init.py:init():606] backend started and connected
+2023-06-04 17:07:22,817 INFO    MainThread:20088 [wandb_init.py:init():700] updated telemetry
+2023-06-04 17:07:22,853 INFO    MainThread:20088 [wandb_init.py:init():737] communicating run to backend with 60.0 second timeout
+2023-06-04 17:07:23,268 INFO    MainThread:20088 [wandb_run.py:_on_init():2177] communicating current version
+2023-06-04 17:07:23,436 INFO    MainThread:20088 [wandb_run.py:_on_init():2186] got version response upgrade_message: "wandb version 0.15.3 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2023-06-04 17:07:23,436 INFO    MainThread:20088 [wandb_init.py:init():787] starting run threads in backend
+2023-06-04 17:07:28,075 INFO    MainThread:20088 [wandb_run.py:_console_start():2158] atexit reg
+2023-06-04 17:07:28,075 INFO    MainThread:20088 [wandb_run.py:_redirect():2013] redirect: SettingsConsole.WRAP_RAW
+2023-06-04 17:07:28,075 INFO    MainThread:20088 [wandb_run.py:_redirect():2078] Wrapping output streams.
+2023-06-04 17:07:28,075 INFO    MainThread:20088 [wandb_run.py:_redirect():2103] Redirects installed.
+2023-06-04 17:07:28,075 INFO    MainThread:20088 [wandb_init.py:init():829] run started, returning control to user process
+2023-06-04 17:07:28,075 INFO    MainThread:20088 [wandb_run.py:_config_callback():1286] config_cb None None {'bl': 23, 'bias': 0.9, 'pop': 2, 'gen': 2}
+2023-06-04 20:40:06,208 WARNING MsgRouterThr:20088 [router.py:message_loop():77] message_loop has been closed
